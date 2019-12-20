@@ -48,7 +48,7 @@ namespace graphics_editor
         public void CreateObj(int x2, int y2)
         {
             factory.CreateObj(x2, y2);
-            scene.RePaint();
+            scene.PaintLast();
         }
         public void Wipe()
         {
@@ -129,6 +129,10 @@ namespace graphics_editor
             {
                 item.Paint(graph);
             }
+        }
+        public void PaintLast()
+        {
+            store.Last().Paint(graph);
         }
     }
 }
