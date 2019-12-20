@@ -36,11 +36,11 @@ namespace graphics_editor
         }
         public void MouseDown(int x, int y)
         {
-
+            model.SetStartPoint(x, y);
         }
         public void MouseUp(int x, int y)
         {
-
+            model.CreateObj(x, y);
         }
         public void MouseMove(int x, int y)
         {
