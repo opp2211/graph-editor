@@ -25,10 +25,10 @@ namespace graphics_editor
         {
             graph.ViewPort(x0, y0, w, h, graphics);
         }
-        public void RePaint()
-        {
-            scene.RePaint();
-        }
+        //public void RePaint()
+        //{
+        //    scene.RePaint();
+        //}
         public void SetCreatedObjType(int createdObjType)
         {
             factory.SetCreatedObjType(createdObjType);
@@ -48,6 +48,12 @@ namespace graphics_editor
         public void CreateObj(int x2, int y2)
         {
             factory.CreateObj(x2, y2);
+            scene.RePaint();
+        }
+        public void Wipe()
+        {
+            store.Clear();
+            scene.RePaint();
         }
     }
     class Factory
@@ -118,9 +124,9 @@ namespace graphics_editor
         }
         public void RePaint()
         {
+            graph.Wipe();
             foreach (Item item in store)
             {
-                graph.Wipe();
                 item.Paint(graph);
             }
         }
