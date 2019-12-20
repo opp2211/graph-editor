@@ -12,51 +12,77 @@ namespace graphics_editor
 {
     public partial class Form1 : Form
     {
+        Controller controller;
         public Form1()
         {
             InitializeComponent();
+            controller = new Controller(new Model());
+            controller.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
+                       pictureBox1.Size.Width, pictureBox1.Size.Height,
+                       pictureBox1.CreateGraphics());
+            controller.InitializeProps(lineColor_label.BackColor.ToArgb(),
+                                       (int)thickness_numericUpDown.Value,
+                                       fillColor_label.BackColor.ToArgb());
         }
-        int x1, y1, x2, y2;
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            x1 = e.X;
-            y1 = e.Y;
+            controller.MouseDown(e.X, e.Y);
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            Graph g = new Graph();
-            g.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
-                       pictureBox1.Size.Width, pictureBox1.Size.Height,
-                       pictureBox1.CreateGraphics());
-
-            x2 = e.X;
-            y2 = e.Y;
-
-            //g.Wipe();
-            //g.Line(x1, y1, x2, y2);
-            //g.Rectangle(x1, y1, x2, y2);
-            Props props1 = new Props();
-            PenProps penProps = new PenProps(Color.Khaki.ToArgb(), 3);
-            BrushProps brushProps = new BrushProps(Color.Yellow.ToArgb());
-            props1.Add(penProps);
-            props1.Add(brushProps);
-
-            Props props2 = new Props();
-            penProps = new PenProps(Color.Red.ToArgb(), 3);
-            brushProps = new BrushProps(Color.Green.ToArgb());
-            props2.Add(penProps);
-            props2.Add(brushProps);
-
-            Rectangle r = new Rectangle(new Frame(x1, y1, x2, y2), props1);
-            Ellipse ellipse = new Ellipse(new Frame(x1 + 10, y1 + 10, x2, y2), props2);
-            List<Item> list = new List<Item>();
-            list.Add(r);
-            list.Add(ellipse);
-
-            Group group = new Group(list);
-            list.Clear();
-            group.Paint(g);
+            controller.MouseUp(e.X, e.Y);
         }
 
+        private void button_line_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(0);
+        }
+
+        private void button_rect_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(1);
+        }
+
+        private void button_ellipse_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(2);
+        }
+
+        private void thickness_numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            int t_value = (int)thickness_numericUpDown.Value;
+            thickness_trackBar.Value = t_value > 10 ? 10 : t_value;
+            controller.SetPenProps(lineColor_label.BackColor.ToArgb(), t_value);
+        }
+
+        private void thickness_trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int t_value = thickness_trackBar.Value;
+            thickness_numericUpDown.Value = t_value;
+            controller.SetPenProps(lineColor_label.BackColor.ToArgb(), t_value);
+        }
+
+        private void lineColor_label_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                lineColor_label.BackColor = colorDialog1.Color;
+                controller.SetPenProps(lineColor_label.BackColor.ToArgb(), (int)thickness_numericUpDown.Value);
+            }
+        }
+
+        private void fillColor_label_Click(object sender, EventArgs e)
+        {
+            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            {
+                fillColor_label.BackColor = colorDialog2.Color;
+                controller.SetBrushProps(fillColor_label.BackColor.ToArgb());
+            }
+        }
+
+        private void button_wipe_Click(object sender, EventArgs e)
+        {
+            controller.Wipe();
+        }
     }
 }
