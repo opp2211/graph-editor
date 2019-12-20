@@ -39,20 +39,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.thickness_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.fillColor_label = new System.Windows.Forms.Label();
+            this.lineColor_label = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thickness_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -107,7 +107,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.thickness_numericUpDown);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(3, 99);
@@ -162,12 +162,22 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Цвет линии:";
             // 
-            // numericUpDown1
+            // thickness_numericUpDown
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(59, 14);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(43, 20);
-            this.numericUpDown1.TabIndex = 2;
+            this.thickness_numericUpDown.Location = new System.Drawing.Point(59, 14);
+            this.thickness_numericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.thickness_numericUpDown.Name = "thickness_numericUpDown";
+            this.thickness_numericUpDown.Size = new System.Drawing.Size(43, 20);
+            this.thickness_numericUpDown.TabIndex = 2;
+            this.thickness_numericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // trackBar1
             // 
@@ -192,8 +202,8 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.fillColor_label);
+            this.groupBox4.Controls.Add(this.lineColor_label);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Location = new System.Drawing.Point(3, 178);
@@ -202,21 +212,21 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             // 
-            // label6
+            // fillColor_label
             // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(3, 73);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 20);
-            this.label6.TabIndex = 1;
+            this.fillColor_label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.fillColor_label.Location = new System.Drawing.Point(3, 73);
+            this.fillColor_label.Name = "fillColor_label";
+            this.fillColor_label.Size = new System.Drawing.Size(99, 20);
+            this.fillColor_label.TabIndex = 1;
             // 
-            // label7
+            // lineColor_label
             // 
-            this.label7.BackColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(3, 35);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(99, 20);
-            this.label7.TabIndex = 1;
+            this.lineColor_label.BackColor = System.Drawing.Color.Black;
+            this.lineColor_label.Location = new System.Drawing.Point(3, 35);
+            this.lineColor_label.Name = "lineColor_label";
+            this.lineColor_label.Size = new System.Drawing.Size(99, 20);
+            this.lineColor_label.TabIndex = 1;
             // 
             // label8
             // 
@@ -265,7 +275,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.thickness_numericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -281,7 +291,7 @@
         private System.Windows.Forms.Button button_ellipse;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown thickness_numericUpDown;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -291,8 +301,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ColorDialog colorDialog2;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label fillColor_label;
+        private System.Windows.Forms.Label lineColor_label;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;

@@ -46,5 +46,10 @@ namespace graphics_editor
         {
 
         }
+        public void InitializeProps(int penColor, int penWidth, int brushColor)
+        {
+            SetPenProps(penColor, penWidth);
+            SetBrushProps(brushColor);
+        }
     }
 }
