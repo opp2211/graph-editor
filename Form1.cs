@@ -33,5 +33,56 @@ namespace graphics_editor
             controller.MouseUp(e.X, e.Y);
         }
 
+        private void button_line_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(0);
+        }
+
+        private void button_rect_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(1);
+        }
+
+        private void button_ellipse_Click(object sender, EventArgs e)
+        {
+            controller.SetCreatedObjType(2);
+        }
+
+        private void thickness_numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            int t_value = (int)thickness_numericUpDown.Value;
+            thickness_trackBar.Value = t_value > 10 ? 10 : t_value;
+            controller.SetPenProps(lineColor_label.BackColor.ToArgb(), t_value);
+        }
+
+        private void thickness_trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            int t_value = thickness_trackBar.Value;
+            thickness_numericUpDown.Value = t_value;
+            controller.SetPenProps(lineColor_label.BackColor.ToArgb(), t_value);
+        }
+
+        private void lineColor_label_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                lineColor_label.BackColor = colorDialog1.Color;
+                controller.SetPenProps(lineColor_label.BackColor.ToArgb(), (int)thickness_numericUpDown.Value);
+            }
+        }
+
+        private void fillColor_label_Click(object sender, EventArgs e)
+        {
+            if (colorDialog2.ShowDialog() == DialogResult.OK)
+            {
+                fillColor_label.BackColor = colorDialog2.Color;
+                controller.SetBrushProps(fillColor_label.BackColor.ToArgb());
+            }
+        }
+
+        private void button_wipe_Click(object sender, EventArgs e)
+        {
+            controller.Wipe();
+        }
     }
 }
