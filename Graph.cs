@@ -31,13 +31,23 @@ namespace graphics_editor
         }
         public void Rectangle(int x1, int y1, int x2, int y2)
         {
-            graphics.FillRectangle(new SolidBrush(Color.FromArgb(BrushColor)), x1, y1, x2 - x1, y2 - y1);
-            graphics.DrawRectangle(new Pen(Color.FromArgb(PenColor), PenWidth), x1, y1, x2 - x1, y2 - y1);
+            int x0 = x1 < x2 ? x1 : x2;
+            int y0 = y1 < y2 ? y1 : y2;
+            int w = x1 < x2 ? x2 - x1 : x1 - x2;
+            int h = y1 < y2 ? y2 - y1 : y1 - y2;
+
+            graphics.FillRectangle(new SolidBrush(Color.FromArgb(BrushColor)), x0, y0, w, h);
+            graphics.DrawRectangle(new Pen(Color.FromArgb(PenColor), PenWidth), x0, y0, w, h);
         }
         public void Ellipse(int x1, int y1, int x2, int y2)
         {
-            graphics.FillEllipse(new SolidBrush(Color.FromArgb(BrushColor)), x1, y1, x2 - x1, y2 - y1);
-            graphics.DrawEllipse(new Pen(Color.FromArgb(PenColor), PenWidth), x1, y1, x2 - x1, y2 - y1);
+            int x0 = x1 < x2 ? x1 : x2;
+            int y0 = y1 < y2 ? y1 : y2;
+            int w = x1 < x2 ? x2 - x1 : x1 - x2;
+            int h = y1 < y2 ? y2 - y1 : y1 - y2;
+
+            graphics.FillEllipse(new SolidBrush(Color.FromArgb(BrushColor)), x0, y0, w, h);
+            graphics.DrawEllipse(new Pen(Color.FromArgb(PenColor), PenWidth), x0, y0, w, h);
         }
         public void Wipe()
         {
