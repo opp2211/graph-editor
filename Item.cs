@@ -46,11 +46,11 @@ namespace graphics_editor
             {
                 list.Add((Item)item.Clone());
             }
-            //todo Фрейм для группы
-            //foreach (Item item in list)
-            //{
-            //    Frame = item.Frame.JoinFrame(Frame);
-            //}
+            Frame = (Frame)list[0].Frame.Clone();
+            foreach (Item item in list)
+            {
+                Frame.JoinFrame(Frame);
+            }
         }
         public override void Paint(Graph graph)
         {
