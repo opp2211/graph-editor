@@ -8,10 +8,10 @@ namespace graphics_editor
 {
     class Frame : ICloneable
     {
-        public int X1 { get; }
-        public int Y1 { get; }
-        public int X2 { get; }
-        public int Y2 { get; }
+        public int X1 { get; set; }
+        public int Y1 { get; set; }
+        public int X2 { get; set; }
+        public int Y2 { get; set; }
 
         public bool Enabled { get; }
 
@@ -29,10 +29,12 @@ namespace graphics_editor
             Enabled = false;
         }
         
-        public Frame JoinFrame (Frame frame)
+        public void JoinFrame (Frame frame)
         {
-            //todo логика объединения фреймов
-            throw new NotImplementedException();
+            X1 = (frame.X1 < X1) ? frame.X1 : X1;
+            X2 = (frame.X2 > X2) ? frame.X2 : X2;
+            Y1 = (frame.Y1 < Y1) ? frame.Y1 : Y1;
+            Y2 = (frame.Y2 > Y2) ? frame.Y2 : Y2;
         }
         public object Clone()
         {
