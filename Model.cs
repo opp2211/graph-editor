@@ -48,7 +48,7 @@ namespace graphics_editor
         public void CreateObj(int x2, int y2)
         {
             factory.CreateObj(x2, y2);
-            scene.PaintLast();
+            scene.RePaint();
         }
         public void Wipe()
         {
