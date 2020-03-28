@@ -36,32 +36,4 @@ namespace graphics_editor
         abstract protected void PaintGeom(Graph graph);
         
     }
-    class Group : Item
-    {
-        List<Item> list;
-        public Group(List<Item> items)
-        {
-            list = new List<Item>();
-            foreach (Item item in items)
-            {
-                list.Add((Item)item.Clone());
-            }
-            Frame = (Frame)list[0].Frame.Clone();
-            foreach (Item item in list)
-            {
-                Frame.JoinFrame(Frame);
-            }
-        }
-        public override void Paint(Graph graph)
-        {
-            foreach (Item item in list)
-            {
-                item.Paint(graph);
-            }
-        }
-        public override object Clone()
-        {
-            return new Group(list);
-        }
-    }
 }

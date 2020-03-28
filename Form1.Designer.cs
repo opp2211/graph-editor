@@ -49,6 +49,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button_wipe = new System.Windows.Forms.Button();
+            this.button_select = new System.Windows.Forms.Button();
+            this.button_group = new System.Windows.Forms.Button();
+            this.button_ungroup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,10 +75,10 @@
             // button_line
             // 
             this.button_line.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_line.Location = new System.Drawing.Point(12, 12);
+            this.button_line.Location = new System.Drawing.Point(9, 36);
             this.button_line.Name = "button_line";
             this.button_line.Size = new System.Drawing.Size(88, 23);
-            this.button_line.TabIndex = 1;
+            this.button_line.TabIndex = 2;
             this.button_line.Text = "Line";
             this.button_line.UseVisualStyleBackColor = true;
             this.button_line.Click += new System.EventHandler(this.button_line_Click);
@@ -83,10 +86,10 @@
             // button_rect
             // 
             this.button_rect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_rect.Location = new System.Drawing.Point(12, 41);
+            this.button_rect.Location = new System.Drawing.Point(9, 65);
             this.button_rect.Name = "button_rect";
             this.button_rect.Size = new System.Drawing.Size(88, 23);
-            this.button_rect.TabIndex = 1;
+            this.button_rect.TabIndex = 3;
             this.button_rect.Text = "Rectangle";
             this.button_rect.UseVisualStyleBackColor = true;
             this.button_rect.Click += new System.EventHandler(this.button_rect_Click);
@@ -94,10 +97,10 @@
             // button_ellipse
             // 
             this.button_ellipse.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_ellipse.Location = new System.Drawing.Point(12, 70);
+            this.button_ellipse.Location = new System.Drawing.Point(9, 94);
             this.button_ellipse.Name = "button_ellipse";
             this.button_ellipse.Size = new System.Drawing.Size(88, 23);
-            this.button_ellipse.TabIndex = 1;
+            this.button_ellipse.TabIndex = 4;
             this.button_ellipse.Text = "Ellipse";
             this.button_ellipse.UseVisualStyleBackColor = true;
             this.button_ellipse.Click += new System.EventHandler(this.button_ellipse_Click);
@@ -113,10 +116,10 @@
             this.groupBox1.Controls.Add(this.thickness_numericUpDown);
             this.groupBox1.Controls.Add(this.thickness_trackBar);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(3, 99);
+            this.groupBox1.Location = new System.Drawing.Point(3, 123);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(106, 80);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
             // groupBox2
@@ -175,7 +178,7 @@
             0});
             this.thickness_numericUpDown.Name = "thickness_numericUpDown";
             this.thickness_numericUpDown.Size = new System.Drawing.Size(43, 20);
-            this.thickness_numericUpDown.TabIndex = 2;
+            this.thickness_numericUpDown.TabIndex = 1;
             this.thickness_numericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -190,6 +193,7 @@
             this.thickness_trackBar.Name = "thickness_trackBar";
             this.thickness_trackBar.Size = new System.Drawing.Size(104, 45);
             this.thickness_trackBar.TabIndex = 1;
+            this.thickness_trackBar.TabStop = false;
             this.thickness_trackBar.Value = 1;
             this.thickness_trackBar.ValueChanged += new System.EventHandler(this.thickness_trackBar_ValueChanged);
             // 
@@ -213,7 +217,7 @@
             this.groupBox4.Controls.Add(this.lineColor_label);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Location = new System.Drawing.Point(3, 178);
+            this.groupBox4.Location = new System.Drawing.Point(3, 202);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(106, 99);
             this.groupBox4.TabIndex = 3;
@@ -261,10 +265,43 @@
             this.button_wipe.Location = new System.Drawing.Point(12, 416);
             this.button_wipe.Name = "button_wipe";
             this.button_wipe.Size = new System.Drawing.Size(88, 23);
-            this.button_wipe.TabIndex = 1;
+            this.button_wipe.TabIndex = 8;
             this.button_wipe.Text = "Wipe";
             this.button_wipe.UseVisualStyleBackColor = true;
             this.button_wipe.Click += new System.EventHandler(this.button_wipe_Click);
+            // 
+            // button_select
+            // 
+            this.button_select.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_select.Location = new System.Drawing.Point(9, 7);
+            this.button_select.Name = "button_select";
+            this.button_select.Size = new System.Drawing.Size(88, 23);
+            this.button_select.TabIndex = 1;
+            this.button_select.Text = "Selection";
+            this.button_select.UseVisualStyleBackColor = true;
+            this.button_select.Click += new System.EventHandler(this.button_line_Click);
+            // 
+            // button_group
+            // 
+            this.button_group.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_group.Location = new System.Drawing.Point(3, 311);
+            this.button_group.Name = "button_group";
+            this.button_group.Size = new System.Drawing.Size(45, 23);
+            this.button_group.TabIndex = 6;
+            this.button_group.Text = "Group";
+            this.button_group.UseVisualStyleBackColor = true;
+            this.button_group.Click += new System.EventHandler(this.button_ellipse_Click);
+            // 
+            // button_ungroup
+            // 
+            this.button_ungroup.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_ungroup.Location = new System.Drawing.Point(50, 311);
+            this.button_ungroup.Name = "button_ungroup";
+            this.button_ungroup.Size = new System.Drawing.Size(56, 23);
+            this.button_ungroup.TabIndex = 7;
+            this.button_ungroup.Text = "Ungroup";
+            this.button_ungroup.UseVisualStyleBackColor = true;
+            this.button_ungroup.Click += new System.EventHandler(this.button_ellipse_Click);
             // 
             // Form1
             // 
@@ -274,8 +311,11 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_wipe);
+            this.Controls.Add(this.button_ungroup);
+            this.Controls.Add(this.button_group);
             this.Controls.Add(this.button_ellipse);
             this.Controls.Add(this.button_rect);
+            this.Controls.Add(this.button_select);
             this.Controls.Add(this.button_line);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
@@ -316,6 +356,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button_wipe;
+        private System.Windows.Forms.Button button_select;
+        private System.Windows.Forms.Button button_group;
+        private System.Windows.Forms.Button button_ungroup;
     }
 }
 
