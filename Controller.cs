@@ -10,13 +10,19 @@ namespace graphics_editor
     class Controller
     {
         Model model;
+        StateController stateController;
         public Controller(Model model)
         {
             this.model = model;
+            this.stateController = new StateController(model);
         }
         public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
         {
             model.ViewPort(x0, y0, w, h, graphics);
+        }
+        public void ChangeState(int stateNum)
+        {
+            stateController.ChangeState(stateNum);
         }
         public void SetCreatedObjType(int createdObjType)
         {
@@ -36,15 +42,23 @@ namespace graphics_editor
         }
         public void MouseDown(int x, int y)
         {
-            model.SetStartPoint(x, y);
+            stateController.MouseDown(x, y);
         }
         public void MouseUp(int x, int y)
         {
-            model.CreateObj(x, y);
+            stateController.MouseUp(x, y);
         }
         public void MouseMove(int x, int y)
         {
-
+            throw new NotImplementedException();
+        }
+        public void ControlOn()
+        {
+            stateController.ControlOn();
+        }
+        public void ControlOff()
+        {
+            stateController.ControlOff();
         }
         public void InitializeProps(int penColor, int penWidth, int brushColor)
         {

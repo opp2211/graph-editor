@@ -18,6 +18,8 @@ namespace graphics_editor
             Frame = new Frame();
         }
         public abstract void Paint(Graph graph);
+        public abstract bool isInBody(int x, int y);
+        public abstract Selection CreateSelection();
         abstract public object Clone();
 
     }

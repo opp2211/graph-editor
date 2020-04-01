@@ -66,10 +66,12 @@ namespace graphics_editor
     class Scene
     {
         Store store;
+        SelectionList selections;
         Graph graph;
-        public Scene(Store store, Graph graph)
+        public Scene(Store store, Graph graph, SelectionList selections)
         {
             this.store = store;
+            this.selections = selections;
             this.graph = graph;
         }
         public void RePaint()
@@ -78,6 +80,10 @@ namespace graphics_editor
             foreach (Item item in store)
             {
                 item.Paint(graph);
+            }
+            foreach (Selection s in selections)
+            {
+                s.Draw(graph);
             }
         }
         public void PaintLast()

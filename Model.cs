@@ -13,13 +13,15 @@ namespace graphics_editor
         Store store;
         Graph graph;
         Scene scene;
+        SelectionList selections;
         
         public Model()
         {
             this.store = new Store();
             this.graph = new Graph();
             this.factory = new Factory(store);
-            this.scene = new Scene(store, graph);
+            this.selections = new SelectionList();
+            this.scene = new Scene(store, graph, selections);
         }
         public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
         {
@@ -29,6 +31,19 @@ namespace graphics_editor
         //{
         //    scene.RePaint();
         //}
+        public bool TrySelect(int x, int y)
+        {
+            for (int i = store.Count - 1; i >= 0; i--)
+            {
+                if (store[i].isInBody(x, y))
+                {
+                    selections.Add(store[i].CreateSelection());
+                    scene.RePaint();
+                    return true;
+                }
+            }
+            return false;
+        }
         public void SetCreatedObjType(int createdObjType)
         {
             factory.SetCreatedObjType(createdObjType);
@@ -53,6 +68,7 @@ namespace graphics_editor
         public void Wipe()
         {
             store.Clear();
+            selections.Clear();
             scene.RePaint();
         }
     }

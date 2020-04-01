@@ -23,6 +23,7 @@ namespace graphics_editor
             controller.InitializeProps(lineColor_label.BackColor.ToArgb(),
                                        (int)thickness_numericUpDown.Value,
                                        fillColor_label.BackColor.ToArgb());
+            this.KeyPreview = true;
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -32,19 +33,25 @@ namespace graphics_editor
         {
             controller.MouseUp(e.X, e.Y);
         }
-
+        private void button_select_Click(object sender, EventArgs e)
+        {
+            controller.ChangeState(0);
+        }
         private void button_line_Click(object sender, EventArgs e)
         {
+            controller.ChangeState(1);
             controller.SetCreatedObjType(0);
         }
 
         private void button_rect_Click(object sender, EventArgs e)
         {
+            controller.ChangeState(1);
             controller.SetCreatedObjType(1);
         }
 
         private void button_ellipse_Click(object sender, EventArgs e)
         {
+            controller.ChangeState(1);
             controller.SetCreatedObjType(2);
         }
 
@@ -83,6 +90,17 @@ namespace graphics_editor
         private void button_wipe_Click(object sender, EventArgs e)
         {
             controller.Wipe();
+        }
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                controller.ControlOn();
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+                controller.ControlOff();
         }
     }
 }

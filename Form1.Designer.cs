@@ -277,9 +277,9 @@
             this.button_select.Name = "button_select";
             this.button_select.Size = new System.Drawing.Size(88, 23);
             this.button_select.TabIndex = 1;
-            this.button_select.Text = "Selection";
+            this.button_select.Text = "Cursor";
             this.button_select.UseVisualStyleBackColor = true;
-            this.button_select.Click += new System.EventHandler(this.button_line_Click);
+            this.button_select.Click += new System.EventHandler(this.button_select_Click);
             // 
             // button_group
             // 
@@ -320,6 +320,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
