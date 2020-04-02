@@ -62,8 +62,9 @@ namespace graphics_editor
         {
             for (int i = store.Count - 1; i >= 0; i--)
             {
-                if (store[i].isInBody(point))
+                if (store[i].isInBody(point) && store[i].Selected == false)
                 {
+                    store[i].Selected = true;
                     selections.Add(store[i].CreateSelection());
                     scene.RePaint();
                     return true;
@@ -95,6 +96,8 @@ namespace graphics_editor
         public void ClearSelections()
         {
             selections.Clear();
+            foreach (Item item in store)
+                item.Selected = false;
             scene.RePaint();
         }
         public void Wipe()

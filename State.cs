@@ -33,11 +33,18 @@ namespace graphics_editor
     }
     class EmptyState : State
     {
-        public EmptyState(Model model, StateController stateController) : base(model, stateController) { }
+        public EmptyState(Model model, StateController stateController) : base(model, stateController) 
+        {
+            model.ClearSelections();
+        }
         public override void MouseDown(Point point)
         {
             if (model.TrySelect(point))
+            {
                 stateController.ChangeState(2);
+                model.TryGrab(point);
+                stateController.ChangeState(4);
+            }
         }
         public override void MouseUp(Point point)
         {
@@ -70,15 +77,15 @@ namespace graphics_editor
         public SingleSelectState(Model model, StateController stateController) : base(model, stateController) { }
         public override void MouseDown(Point point)
         {
-            model.TryGrab(point);
+
         }
         public override void MouseUp(Point point)
         {
-            model.Release();
+
         }
         public override void MouseMove(Point point)
         {
-            model.DragTo(point);
+
         }
     }
     class DragState : State
@@ -91,11 +98,12 @@ namespace graphics_editor
         }
         public override void MouseUp(Point point)
         {
-
+            model.Release();
+            stateController.ChangeToLastState();
         }
         public override void MouseMove(Point point)
         {
-
+            model.DragTo(point);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace graphics_editor
     abstract class Item : ICloneable
     {
         public Frame Frame { get; set; }
+        public bool Selected { get; set; } = false;
         protected Item (Frame frame)
         {
             Frame = frame;
