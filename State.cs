@@ -81,4 +81,21 @@ namespace graphics_editor
             model.DragTo(point);
         }
     }
+    class DragState : State
+    {
+        public DragState(Model model, StateController stateController) : base(model, stateController) { }
+
+        public override void MouseDown(Point point)
+        {
+
+        }
+        public override void MouseUp(Point point)
+        {
+
+        }
+        public override void MouseMove(Point point)
+        {
+
+        }
+    }
 }
