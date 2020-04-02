@@ -17,7 +17,7 @@ namespace graphics_editor
         public int PenWidth { get; set; }
         public int BrushColor { get; set; }
 
-        public void ViewPort (int x0, int y0, int w, int h, Graphics graphics)
+        public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
         {
             this.graphics = graphics;
             this.x0 = x0;
@@ -79,7 +79,8 @@ namespace graphics_editor
         }
         public void Wipe()
         {
-            graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, width, height);
+            if (graphics != null)
+                graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, width, height);
         }
     }
 }
