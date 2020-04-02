@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace graphics_editor
 {
@@ -18,54 +19,66 @@ namespace graphics_editor
             this.stateController = stateController;
             isCtrl = stateController.IsCtrl;
         }
-        abstract public void MouseDown(int x, int y);
-        abstract public void MouseUp(int x, int y);
-        abstract public void MouseMove(int x, int y);
+        abstract public void MouseDown(Point point);
+        abstract public void MouseUp(Point point);
+        abstract public void MouseMove(Point point);
         public void ControlOn()
         {
             isCtrl = true;
-            //MessageBox.Show("Нажат контрол");
         }
         public void ControlOff()
         {
             isCtrl = false;
-            MessageBox.Show("Контрол отпущен");
         }
     }
     class EmptyState : State
     {
         public EmptyState(Model model, StateController stateController) : base(model, stateController) { }
-        public override void MouseDown(int x, int y)
+        public override void MouseDown(Point point)
         {
-            if (model.TrySelect(x, y)) ;
-                //MessageBox.Show("EmptyState=>MouseDown(Попадание)");
-
-            //stateController.ChangeState(2);
+            if (model.TrySelect(point))
+                stateController.ChangeState(2);
         }
-        public override void MouseUp(int x, int y)
+        public override void MouseUp(Point point)
         {
             //MessageBox.Show("EmptyState=>MouseUp");
         }
-        public override void MouseMove(int x, int y)
+        public override void MouseMove(Point point)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
     class ObjectCreationState : State
     {
         public ObjectCreationState(Model model, StateController stateController) : base(model, stateController) { }
 
-        public override void MouseDown(int x, int y)
+        public override void MouseDown(Point point)
         {
-            model.SetStartPoint(x, y);
+            model.SetStartPoint(point);
         }
-        public override void MouseUp(int x, int y)
+        public override void MouseUp(Point point)
         {
-            model.CreateObj(x, y);
+            model.CreateObj(point);
         }
-        public override void MouseMove(int x, int y)
+        public override void MouseMove(Point point)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+        }
+    }
+    class SingleSelectState : State
+    {
+        public SingleSelectState(Model model, StateController stateController) : base(model, stateController) { }
+        public override void MouseDown(Point point)
+        {
+            model.TryGrab(point);
+        }
+        public override void MouseUp(Point point)
+        {
+            model.Release();
+        }
+        public override void MouseMove(Point point)
+        {
+            model.DragTo(point);
         }
     }
 }

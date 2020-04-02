@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace graphics_editor
 {
@@ -26,19 +27,22 @@ namespace graphics_editor
                 case 1:
                     state = new ObjectCreationState(model, this);
                     break;
+                case 2:
+                    state = new SingleSelectState(model, this);
+                    break;
             }
         }
-        public void MouseDown(int x, int y)
+        public void MouseDown(Point point)
         {
-            state.MouseDown(x, y);
+            state.MouseDown(point);
         }
-        public void MouseUp(int x, int y)
+        public void MouseUp(Point point)
         {
-            state.MouseUp(x, y);
+            state.MouseUp(point);
         }
-        public void MouseMove(int x, int y)
+        public void MouseMove(Point point)
         {
-            state.MouseMove(x, y);
+            state.MouseMove(point);
         }
         public void ControlOn()
         {

@@ -14,13 +14,13 @@ namespace graphics_editor
         {
             graph.Rectangle(Frame.X1, Frame.Y1, Frame.X2, Frame.Y2);
         }
-        public override bool isInBody(int x, int y)
+        public override bool isInBody(Point point)
         {
             int x0 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
             int y0 = Frame.Y1 < Frame.Y2 ? Frame.Y1 : Frame.Y2;
             int w = Math.Abs(Frame.X1 - Frame.X2);
             int h = Math.Abs(Frame.Y1 - Frame.Y2);
-            return x >= x0 && x <= x0 + w && y >= y0 && y <= y0 + h;
+            return point.X >= x0 && point.X <= x0 + w && point.Y >= y0 && point.Y <= y0 + h;
         }
         public override Selection CreateSelection()
         {
@@ -38,10 +38,10 @@ namespace graphics_editor
         {
             graph.Ellipse(Frame.X1, Frame.Y1, Frame.X2, Frame.Y2);
         }
-        public override bool isInBody(int x, int y)
+        public override bool isInBody(Point point)
         {
             Point centre = new Point((Frame.X2 + Frame.X1) / 2, (Frame.Y2 + Frame.Y1) / 2);
-            return Math.Pow(x - centre.X, 2) / Math.Pow(((Frame.X2 - Frame.X1) / 2), 2) + Math.Pow(y - centre.Y, 2) / Math.Pow(((Frame.Y2 - Frame.Y1) / 2), 2) <= 1;
+            return Math.Pow(point.X - centre.X, 2) / Math.Pow(((Frame.X2 - Frame.X1) / 2), 2) + Math.Pow(point.Y - centre.Y, 2) / Math.Pow(((Frame.Y2 - Frame.Y1) / 2), 2) <= 1;
         }
         public override Selection CreateSelection()
         {
@@ -59,7 +59,7 @@ namespace graphics_editor
         {
             graph.Line(Frame.X1, Frame.Y1, Frame.X2, Frame.Y2);
         }
-        public override bool isInBody(int x, int y)
+        public override bool isInBody(Point point)
         {
             int x1 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
             int x2 = x1 == Frame.X1 ? Frame.X2 : Frame.X1;
@@ -68,19 +68,19 @@ namespace graphics_editor
 
             int delta = 5;
 
-            bool left = x >= x1 - delta;
-            bool right = x <= x2 + delta;
+            bool left = point.X >= x1 - delta;
+            bool right = point.X <= x2 + delta;
 
             bool top, bottom;
             if (y1 < y2)
             {
-                top = y >= y1 - delta;
-                bottom = y <= y2 + delta;
+                top = point.Y >= y1 - delta;
+                bottom = point.Y <= y2 + delta;
             }
             else
             {
-                top = y >= y2 - delta;
-                bottom = y <= y1 + delta;
+                top = point.Y >= y2 - delta;
+                bottom = point.Y <= y1 + delta;
             }
 
             return top && bottom && left && right;
@@ -110,11 +110,11 @@ namespace graphics_editor
                 Frame.JoinFrame(Frame);
             }
         }
-        public override bool isInBody(int x, int y)
+        public override bool isInBody(Point point)
         {
             foreach (Item item in list)
             {
-                if (item.isInBody(x, y))
+                if (item.isInBody(point))
                     return true;
             }
             return false;

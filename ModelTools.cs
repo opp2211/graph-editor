@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace graphics_editor
 {
@@ -31,15 +32,15 @@ namespace graphics_editor
         {
             brushProps = new BrushProps(brushColor);
         }
-        public void SetStartPoint(int x1, int y1)
+        public void SetStartPoint(Point point)
         {
-            this.x1 = x1;
-            this.y1 = y1;
+            this.x1 = point.X;
+            this.y1 = point.Y;
         }
-        public void CreateObj(int x2, int y2)
+        public void CreateObj(Point point2)
         {
-            this.x2 = x2;
-            this.y2 = y2;
+            this.x2 = point2.X;
+            this.y2 = point2.Y;
             Frame frame = new Frame(x1, y1, x2, y2);
             switch (createdObjType)
             {

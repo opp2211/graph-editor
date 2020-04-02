@@ -14,7 +14,7 @@ namespace graphics_editor
         Graph graph;
         Scene scene;
         SelectionList selections;
-        
+
         public Model()
         {
             this.store = new Store();
@@ -31,11 +31,38 @@ namespace graphics_editor
         //{
         //    scene.RePaint();
         //}
-        public bool TrySelect(int x, int y)
+        public void TryGrab(Point point)
+        {
+            foreach (Selection s in selections)
+            {
+                s.TryGrab(point);
+            }
+        }
+        public void DragTo(Point point)
+        {
+            bool repaint = false;
+            foreach(Selection s in selections)
+            {
+                if (s.Grabbed)
+                {
+                    s.DragTo(point);
+                    repaint = true;
+                }
+            }
+            if (repaint) scene.RePaint();
+        }
+        public void Release()
+        {
+            foreach(Selection s in selections)
+            {
+                s.Release();
+            }
+        }
+        public bool TrySelect(Point point)
         {
             for (int i = store.Count - 1; i >= 0; i--)
             {
-                if (store[i].isInBody(x, y))
+                if (store[i].isInBody(point))
                 {
                     selections.Add(store[i].CreateSelection());
                     scene.RePaint();
@@ -56,13 +83,13 @@ namespace graphics_editor
         {
             factory.SetBrushProps(brushColor);
         }
-        public void SetStartPoint(int x1, int y1)
+        public void SetStartPoint(Point point)
         {
-            factory.SetStartPoint(x1, y1);
+            factory.SetStartPoint(point);
         }
-        public void CreateObj(int x2, int y2)
+        public void CreateObj(Point point2)
         {
-            factory.CreateObj(x2, y2);
+            factory.CreateObj(point2);
             scene.RePaint();
         }
         public void Wipe()

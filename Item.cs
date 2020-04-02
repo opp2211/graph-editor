@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace graphics_editor
 {
@@ -18,7 +19,7 @@ namespace graphics_editor
             Frame = new Frame();
         }
         public abstract void Paint(Graph graph);
-        public abstract bool isInBody(int x, int y);
+        public abstract bool isInBody(Point point);
         public abstract Selection CreateSelection();
         abstract public object Clone();
 

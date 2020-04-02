@@ -27,11 +27,15 @@ namespace graphics_editor
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            controller.MouseDown(e.X, e.Y);
+            controller.MouseDown(e.Location);
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            controller.MouseUp(e.X, e.Y);
+            controller.MouseUp(e.Location);
+        }
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            controller.MouseMove(e.Location);
         }
         private void button_select_Click(object sender, EventArgs e)
         {

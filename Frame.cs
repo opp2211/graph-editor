@@ -36,6 +36,13 @@ namespace graphics_editor
             Y1 = (frame.Y1 < Y1) ? frame.Y1 : Y1;
             Y2 = (frame.Y2 > Y2) ? frame.Y2 : Y2;
         }
+        public void Move(int dx, int dy)
+        {
+            X1 += dx;
+            X2 += dx;
+            Y1 += dy;
+            Y2 += dy;
+        }
         public object Clone()
         {
             return MemberwiseClone();

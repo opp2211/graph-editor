@@ -40,17 +40,17 @@ namespace graphics_editor
         {
             model.Wipe();
         }
-        public void MouseDown(int x, int y)
+        public void MouseDown(Point point)
         {
-            stateController.MouseDown(x, y);
+            stateController.MouseDown(point);
         }
-        public void MouseUp(int x, int y)
+        public void MouseUp(Point point)
         {
-            stateController.MouseUp(x, y);
+            stateController.MouseUp(point);
         }
-        public void MouseMove(int x, int y)
+        public void MouseMove(Point point)
         {
-            throw new NotImplementedException();
+            stateController.MouseMove(point);
         }
         public void ControlOn()
         {
