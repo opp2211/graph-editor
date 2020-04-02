@@ -11,6 +11,8 @@ namespace graphics_editor
     {
         Model model;
         State state;
+        int lastState;
+        int currentState;
         public bool IsCtrl { get; set; } = false;
         public StateController(Model model)
         {
@@ -19,6 +21,8 @@ namespace graphics_editor
         }
         public void ChangeState(int stateNum)
         {
+            lastState = currentState != stateNum ? currentState : lastState;
+            currentState = stateNum;
             switch (stateNum)
             {
                 case 0:
@@ -31,6 +35,10 @@ namespace graphics_editor
                     state = new SingleSelectState(model, this);
                     break;
             }
+        }
+        public void ChangeToLastState()
+        {
+            ChangeState(lastState);
         }
         public void MouseDown(Point point)
         {
