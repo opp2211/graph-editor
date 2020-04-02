@@ -34,6 +34,9 @@ namespace graphics_editor
                 case 2:
                     state = new SingleSelectState(model, this);
                     break;
+                case 3:
+                    state = new MultiSelectState(model, this);
+                    break;
                 case 4:
                     state = new DragState(model, this);
                     break;

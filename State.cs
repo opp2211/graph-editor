@@ -88,6 +88,22 @@ namespace graphics_editor
 
         }
     }
+    class MultiSelectState : State
+    {
+        public MultiSelectState(Model model, StateController stateController) : base(model, stateController) { }
+        public override void MouseDown(Point point)
+        {
+
+        }
+        public override void MouseUp(Point point)
+        {
+
+        }
+        public override void MouseMove(Point point)
+        {
+
+        }
+    }
     class DragState : State
     {
         public DragState(Model model, StateController stateController) : base(model, stateController) { }
