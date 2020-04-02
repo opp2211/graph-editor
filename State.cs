@@ -41,11 +41,11 @@ namespace graphics_editor
         }
         public override void MouseUp(Point point)
         {
-            //MessageBox.Show("EmptyState=>MouseUp");
+
         }
         public override void MouseMove(Point point)
         {
-            //throw new NotImplementedException();
+
         }
     }
     class ObjectCreationState : State

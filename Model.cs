@@ -92,6 +92,11 @@ namespace graphics_editor
             factory.CreateObj(point2);
             scene.RePaint();
         }
+        public void ClearSelections()
+        {
+            selections.Clear();
+            scene.RePaint();
+        }
         public void Wipe()
         {
             store.Clear();
