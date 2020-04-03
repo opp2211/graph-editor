@@ -33,7 +33,7 @@ namespace graphics_editor
     }
     class EmptyState : State
     {
-        public EmptyState(Model model, StateController stateController) : base(model, stateController) 
+        public EmptyState(Model model, StateController stateController) : base(model, stateController)
         {
             model.ClearSelections();
         }
@@ -42,8 +42,8 @@ namespace graphics_editor
             if (model.TrySelect(point))
             {
                 stateController.ChangeState(2);
-                model.TryGrab(point);
-                stateController.ChangeState(4);
+                if (model.TryGrab(point))
+                    stateController.ChangeState(4);
             }
         }
         public override void MouseUp(Point point)
@@ -57,7 +57,10 @@ namespace graphics_editor
     }
     class ObjectCreationState : State
     {
-        public ObjectCreationState(Model model, StateController stateController) : base(model, stateController) { }
+        public ObjectCreationState(Model model, StateController stateController) : base(model, stateController)
+        {
+            model.ClearSelections();
+        }
 
         public override void MouseDown(Point point)
         {
@@ -77,7 +80,24 @@ namespace graphics_editor
         public SingleSelectState(Model model, StateController stateController) : base(model, stateController) { }
         public override void MouseDown(Point point)
         {
-
+            if (model.TrySelect(point))
+            {
+                if (isCtrl)
+                {
+                    stateController.ChangeState(3);
+                }
+                else
+                {
+                    model.ClearSelections();
+                    model.TrySelect(point);
+                }
+                model.TryGrab(point);
+                stateController.ChangeState(4);
+            }
+            else if (model.TryGrab(point))
+                stateController.ChangeState(4);
+            else
+                stateController.ChangeState(0);
         }
         public override void MouseUp(Point point)
         {
@@ -93,7 +113,22 @@ namespace graphics_editor
         public MultiSelectState(Model model, StateController stateController) : base(model, stateController) { }
         public override void MouseDown(Point point)
         {
-
+            if (isCtrl)
+            {
+                model.TrySelect(point);
+                model.TryGrab(point);
+                stateController.ChangeState(4);
+            }
+            else if (model.TryGrab(point) || model.TrySelect(point))
+            {
+                model.ClearSelections();
+                model.TrySelect(point);
+                stateController.ChangeState(2);
+                model.TryGrab(point);
+                stateController.ChangeState(4);
+            }
+            else
+                stateController.ChangeState(0);
         }
         public override void MouseUp(Point point)
         {

@@ -31,29 +31,30 @@ namespace graphics_editor
         //{
         //    scene.RePaint();
         //}
-        public void TryGrab(Point point)
+        public bool TryGrab(Point point)
         {
+            bool grabbed = false;
             foreach (Selection s in selections)
             {
-                s.TryGrab(point);
+                if (s.TryGrab(point))
+                    grabbed = true;
             }
+            return grabbed;
         }
         public void DragTo(Point point)
         {
             bool repaint = false;
-            foreach(Selection s in selections)
+            foreach (Selection s in selections)
             {
-                if (s.Grabbed)
-                {
-                    s.DragTo(point);
-                    repaint = true;
-                }
+                s.DragTo(point);
+                repaint = true;
             }
+            selections[0].SetGrabbedPoint(point);
             if (repaint) scene.RePaint();
         }
         public void Release()
         {
-            foreach(Selection s in selections)
+            foreach (Selection s in selections)
             {
                 s.Release();
             }

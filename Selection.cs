@@ -19,7 +19,7 @@ namespace graphics_editor
             }
         }
         protected bool grabbed = false;
-        protected Point grabbedPoint;
+        protected static Point grabbedPoint;
 
         protected Selection(Item item)
         {
@@ -27,22 +27,27 @@ namespace graphics_editor
         }
         abstract public void Draw(Graph graph);
         abstract public void Move(int dx, int dy);
-        public void TryGrab(Point point)
+        public bool TryGrab(Point point)
         {
             if (item.isInBody(point))
             {
                 grabbed = true;
                 grabbedPoint = point;
+                return true;
             }
+            return false;
         }
         public void DragTo(Point point)
         {
             int dx = point.X - grabbedPoint.X;
             int dy = point.Y - grabbedPoint.Y;
-            grabbedPoint = point;
 
             item.Frame.Move(dx, dy);
             Move(dx, dy);
+        }
+        public void SetGrabbedPoint(Point point)
+        {
+            grabbedPoint = point;
         }
         public void Release()
         {
