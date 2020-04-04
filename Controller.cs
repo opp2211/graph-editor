@@ -60,10 +60,24 @@ namespace graphics_editor
         {
             stateController.ControlOff();
         }
+        public void Group()
+        {
+            model.Group();
+            stateController.ChangeState(2);
+        }
+        public void UnGroup()
+        {
+            model.UnGroup();
+            stateController.ChangeState(3);
+        }
         public void InitializeProps(int penColor, int penWidth, int brushColor)
         {
             SetPenProps(penColor, penWidth);
             SetBrushProps(brushColor);
+        }
+        public void RePaint()
+        {
+            model.RePaint();
         }
     }
 }

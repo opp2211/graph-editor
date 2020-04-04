@@ -11,6 +11,7 @@ namespace graphics_editor
     abstract class Selection
     {
         protected Item item;
+        public Item Item { get { return item; } }
         public bool Grabbed
         {
             get
@@ -42,7 +43,7 @@ namespace graphics_editor
             int dx = point.X - grabbedPoint.X;
             int dy = point.Y - grabbedPoint.Y;
 
-            item.Frame.Move(dx, dy);
+            item.Move(dx, dy);
             Move(dx, dy);
         }
         public void SetGrabbedPoint(Point point)

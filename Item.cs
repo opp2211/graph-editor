@@ -22,6 +22,7 @@ namespace graphics_editor
         public abstract void Paint(Graph graph);
         public abstract bool isInBody(Point point);
         public abstract Selection CreateSelection();
+        public abstract void Move(int dx, int dy);
         abstract public object Clone();
 
     }
@@ -38,6 +39,9 @@ namespace graphics_editor
             PaintGeom(graph);
         }
         abstract protected void PaintGeom(Graph graph);
-        
+        public override void Move(int dx, int dy)
+        {
+            Frame.Move(dx, dy);
+        }
     }
 }

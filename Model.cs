@@ -27,10 +27,10 @@ namespace graphics_editor
         {
             graph.ViewPort(x0, y0, w, h, graphics);
         }
-        //public void RePaint()
-        //{
-        //    scene.RePaint();
-        //}
+        public void RePaint()
+        {
+            scene.RePaint();
+        }
         public bool TryGrab(Point point)
         {
             bool grabbed = false;
@@ -100,6 +100,39 @@ namespace graphics_editor
             foreach (Item item in store)
                 item.Selected = false;
             scene.RePaint();
+        }
+        public void Group()
+        {
+            if (selections.Count > 1)
+            {
+                selections.Clear();
+                Group group = store.Group();
+                group.ClearSelectionsForItems();
+                group.Selected = true;
+                selections.Add(group.CreateSelection());
+                scene.RePaint();
+            }
+        }
+        public void UnGroup()
+        {
+            if (selections.Count == 1)
+            {
+                try
+                {
+                    List<Item> ungrouppedItems = store.UnGroup((Group)selections[0].Item);
+                    selections.Clear();
+                    foreach (Item item in ungrouppedItems)
+                    {
+                        item.Selected = true;
+                        selections.Add(item.CreateSelection());
+                    }
+                    scene.RePaint();
+                }
+                catch (InvalidCastException ex)
+                {
+
+                }
+            }
         }
         public void Wipe()
         {

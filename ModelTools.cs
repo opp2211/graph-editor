@@ -63,7 +63,37 @@ namespace graphics_editor
             }
         }
     }
-    class Store : List<Item> { }
+    class Store : List<Item> 
+    { 
+        public Group Group()
+        {
+            List<Item> list = new List<Item>();
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Selected)
+                {
+                    list.Add(this[i]);
+                    this.RemoveAt(i);
+                    i--;
+                }
+            }
+            Group group = new Group(list);
+            this.Add(group);
+            return group;
+        }
+        public List<Item> UnGroup(Group group)
+        {
+            List<Item> list = new List<Item>();
+
+            this.Remove(group);
+            foreach(Item item in group.GetItems)
+            {
+                this.Add(item);
+                list.Add(item);
+            }
+            return list;
+        }
+    }
     class Scene
     {
         Store store;

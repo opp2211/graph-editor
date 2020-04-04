@@ -97,6 +97,7 @@ namespace graphics_editor
     class Group : Item
     {
         List<Item> list;
+        public List<Item> GetItems { get { return list; } }
         public Group(List<Item> items)
         {
             list = new List<Item>();
@@ -107,7 +108,7 @@ namespace graphics_editor
             Frame = (Frame)list[0].Frame.Clone();
             foreach (Item item in list)
             {
-                Frame.JoinFrame(Frame);
+                Frame.JoinFrame(item.Frame);
             }
         }
         public override bool isInBody(Point point)
@@ -126,9 +127,24 @@ namespace graphics_editor
                 item.Paint(graph);
             }
         }
+        public void ClearSelectionsForItems()
+        {
+            foreach (Item item in list)
+            {
+                item.Selected = false;
+            }
+        }
         public override Selection CreateSelection()
         {
-            throw new NotImplementedException();
+            return new FrameSelection(this);
+        }
+        public override void Move(int dx, int dy)
+        {
+            Frame.Move(dx, dy);
+            foreach (Item item in list)
+            {
+                item.Move(dx, dy);
+            }
         }
         public override object Clone()
         {

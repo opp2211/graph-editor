@@ -24,6 +24,7 @@ namespace graphics_editor
                                        (int)thickness_numericUpDown.Value,
                                        fillColor_label.BackColor.ToArgb());
             this.KeyPreview = true;
+            DoubleBuffered = true;
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -106,5 +107,19 @@ namespace graphics_editor
             if (e.KeyCode == Keys.ControlKey)
                 controller.ControlOff();
         }
+
+        private void button_group_Click(object sender, EventArgs e)
+        {
+            controller.Group();
+        }
+        private void button_ungroup_Click(object sender, EventArgs e)
+        {
+            controller.UnGroup();
+        }
+        private void Form1_LocationChanged(object sender, EventArgs e)
+        {
+            controller.RePaint();
+        }
+
     }
 }

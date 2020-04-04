@@ -291,7 +291,7 @@
             this.button_group.TabIndex = 6;
             this.button_group.Text = "Group";
             this.button_group.UseVisualStyleBackColor = true;
-            this.button_group.Click += new System.EventHandler(this.button_ellipse_Click);
+            this.button_group.Click += new System.EventHandler(this.button_group_Click);
             // 
             // button_ungroup
             // 
@@ -302,7 +302,7 @@
             this.button_ungroup.TabIndex = 7;
             this.button_ungroup.Text = "Ungroup";
             this.button_ungroup.UseVisualStyleBackColor = true;
-            this.button_ungroup.Click += new System.EventHandler(this.button_ellipse_Click);
+            this.button_ungroup.Click += new System.EventHandler(this.button_ungroup_Click);
             // 
             // Form1
             // 
@@ -321,6 +321,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.LocationChanged += new System.EventHandler(this.Form1_LocationChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
