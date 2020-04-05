@@ -115,23 +115,17 @@ namespace graphics_editor
         }
         public void UnGroup()
         {
-            if (selections.Count == 1)
+            if (selections.Count == 1 && selections[0].Item.GetType()== typeof(Group))
             {
-                try
+                List<Item> ungrouppedItems = store.UnGroup((Group)selections[0].Item);
+                selections.Clear();
+                foreach (Item item in ungrouppedItems)
                 {
-                    List<Item> ungrouppedItems = store.UnGroup((Group)selections[0].Item);
-                    selections.Clear();
-                    foreach (Item item in ungrouppedItems)
-                    {
-                        item.Selected = true;
-                        selections.Add(item.CreateSelection());
-                    }
-                    scene.RePaint();
+                    item.Selected = true;
+                    selections.Add(item.CreateSelection());
                 }
-                catch (InvalidCastException ex)
-                {
+                scene.RePaint();
 
-                }
             }
         }
         public void Wipe()
