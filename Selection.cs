@@ -12,6 +12,9 @@ namespace graphics_editor
     {
         protected Item item;
         public Item Item { get { return item; } }
+
+        protected bool grabbed = false;
+        protected static Point grabbedPoint;
         public bool Grabbed
         {
             get
@@ -19,15 +22,16 @@ namespace graphics_editor
                 return grabbed;
             }
         }
-        protected bool grabbed = false;
-        protected static Point grabbedPoint;
 
         protected Selection(Item item)
         {
             this.item = item;
+            ResetSelection();
         }
+
+        abstract public void ResetSelection();
         abstract public void Draw(Graph graph);
-        abstract public void Move(int dx, int dy);
+
         public bool TryGrab(Point point)
         {
             if (item.isInBody(point))
@@ -38,17 +42,17 @@ namespace graphics_editor
             }
             return false;
         }
+        public void SetGrabbedPoint(Point point)
+        {
+            grabbedPoint = point;
+        }
         public void DragTo(Point point)
         {
             int dx = point.X - grabbedPoint.X;
             int dy = point.Y - grabbedPoint.Y;
 
             item.Move(dx, dy);
-            Move(dx, dy);
-        }
-        public void SetGrabbedPoint(Point point)
-        {
-            grabbedPoint = point;
+            ResetSelection();
         }
         public void Release()
         {
@@ -62,7 +66,9 @@ namespace graphics_editor
         Point ThirdSel;
         Point FourthSel;
 
-        public FrameSelection(Item item) : base(item)
+        public FrameSelection(Item item) : base(item) { }
+
+        public override void ResetSelection()
         {
             int x0 = item.Frame.X1 < item.Frame.X2 ? item.Frame.X1 : item.Frame.X2;
             int y0 = item.Frame.Y1 < item.Frame.Y2 ? item.Frame.Y1 : item.Frame.Y2;
@@ -78,13 +84,6 @@ namespace graphics_editor
             FourthSel.X = x0;
             FourthSel.Y = y0 + h;
         }
-        public override void Move(int dx, int dy)
-        {
-            FirstSel.Offset(dx, dy);
-            SecondSel.Offset(dx, dy);
-            ThirdSel.Offset(dx, dy);
-            FourthSel.Offset(dx, dy);
-        }
         public override void Draw(Graph graph)
         {
             graph.FrameSelection(FirstSel, SecondSel, ThirdSel, FourthSel);
@@ -94,17 +93,13 @@ namespace graphics_editor
     {
         Point FirstSel;
         Point SecondSel;
-        public LineSelection(Item item) : base(item)
+        public LineSelection(Item item) : base(item) { }
+        public override void ResetSelection()
         {
             FirstSel.X = item.Frame.X1;
             FirstSel.Y = item.Frame.Y1;
             SecondSel.X = item.Frame.X2;
             SecondSel.Y = item.Frame.Y2;
-        }
-        public override void Move(int dx, int dy)
-        {
-            FirstSel.Offset(dx, dy);
-            SecondSel.Offset(dx, dy);
         }
         public override void Draw(Graph graph)
         {
