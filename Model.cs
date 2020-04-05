@@ -27,8 +27,25 @@ namespace graphics_editor
         {
             graph.ViewPort(x0, y0, w, h, graphics);
         }
-        public void RePaint()
+        public bool TrySelect(Point point)
         {
+            for (int i = store.Count - 1; i >= 0; i--)
+            {
+                if (store[i].isInBody(point) && store[i].Selected == false)
+                {
+                    store[i].Selected = true;
+                    selections.Add(store[i].CreateSelection());
+                    scene.RePaint();
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void ClearSelections()
+        {
+            selections.Clear();
+            foreach (Item item in store)
+                item.Selected = false;
             scene.RePaint();
         }
         public bool TryGrab(Point point)
@@ -59,24 +76,6 @@ namespace graphics_editor
                 s.Release();
             }
         }
-        public bool TrySelect(Point point)
-        {
-            for (int i = store.Count - 1; i >= 0; i--)
-            {
-                if (store[i].isInBody(point) && store[i].Selected == false)
-                {
-                    store[i].Selected = true;
-                    selections.Add(store[i].CreateSelection());
-                    scene.RePaint();
-                    return true;
-                }
-            }
-            return false;
-        }
-        public void SetCreatedObjType(int createdObjType)
-        {
-            factory.SetCreatedObjType(createdObjType);
-        }
         public void SetPenProps(int penColor, int penWidth)
         {
             factory.SetPenProps(penColor, penWidth);
@@ -85,6 +84,10 @@ namespace graphics_editor
         {
             factory.SetBrushProps(brushColor);
         }
+        public void SetCreatedObjType(int createdObjType)
+        {
+            factory.SetCreatedObjType(createdObjType);
+        }
         public void SetStartPoint(Point point)
         {
             factory.SetStartPoint(point);
@@ -92,13 +95,6 @@ namespace graphics_editor
         public void CreateObj(Point point2)
         {
             factory.CreateObj(point2);
-            scene.RePaint();
-        }
-        public void ClearSelections()
-        {
-            selections.Clear();
-            foreach (Item item in store)
-                item.Selected = false;
             scene.RePaint();
         }
         public void Group()
@@ -115,7 +111,7 @@ namespace graphics_editor
         }
         public void UnGroup()
         {
-            if (selections.Count == 1 && selections[0].Item.GetType()== typeof(Group))
+            if (selections.Count == 1 && selections[0].Item.GetType() == typeof(Group))
             {
                 List<Item> ungrouppedItems = store.UnGroup((Group)selections[0].Item);
                 selections.Clear();
@@ -127,6 +123,10 @@ namespace graphics_editor
                 scene.RePaint();
 
             }
+        }
+        public void RePaint()
+        {
+            scene.RePaint();
         }
         public void Wipe()
         {
