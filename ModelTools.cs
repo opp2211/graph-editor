@@ -9,7 +9,6 @@ namespace graphics_editor
 {
     class Factory
     {
-        int x1, y1, x2, y2;
         PenProps penProps;
         BrushProps brushProps;
         Props props;
@@ -32,16 +31,9 @@ namespace graphics_editor
         {
             brushProps = new BrushProps(brushColor);
         }
-        public void SetStartPoint(Point point)
+        public void CreateObj(Point point)
         {
-            this.x1 = point.X;
-            this.y1 = point.Y;
-        }
-        public void CreateObj(Point point2)
-        {
-            this.x2 = point2.X;
-            this.y2 = point2.Y;
-            Frame frame = new Frame(x1, y1, x2, y2);
+            Frame frame = new Frame(point.X, point.Y, point.X, point.Y);
             switch (createdObjType)
             {
                 case 0:

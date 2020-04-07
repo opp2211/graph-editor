@@ -10,6 +10,10 @@ namespace graphics_editor
     abstract class Item : ICloneable
     {
         public Frame Frame { get; set; }
+        public float RelX1 { get; set; }
+        public float RelX2 { get; set; }
+        public float RelY1 { get; set; }
+        public float RelY2 { get; set; }
         public bool Selected { get; set; } = false;
         protected Item (Frame frame)
         {
@@ -23,6 +27,10 @@ namespace graphics_editor
         public abstract bool isInBody(Point point);
         public abstract Selection CreateSelection();
         public abstract void Move(int dx, int dy);
+        public abstract void Resize_1(int dx, int dy);
+        public abstract void Resize_2(int dx, int dy);
+        public abstract void Resize_3(int dx, int dy);
+        public abstract void Resize_4(int dx, int dy);
         abstract public object Clone();
 
     }
@@ -42,6 +50,22 @@ namespace graphics_editor
         public override void Move(int dx, int dy)
         {
             Frame.Move(dx, dy);
+        }
+        public override void Resize_1(int dx, int dy)
+        {
+            Frame.Resize_1(dx, dy);
+        }
+        public override void Resize_2(int dx, int dy)
+        {
+            Frame.Resize_2(dx, dy);
+        }
+        public override void Resize_3(int dx, int dy)
+        {
+            Frame.Resize_3(dx, dy);
+        }
+        public override void Resize_4(int dx, int dy)
+        {
+            Frame.Resize_4(dx, dy);
         }
     }
 }

@@ -64,11 +64,13 @@ namespace graphics_editor
 
         public override void MouseDown(Point point)
         {
-            model.SetStartPoint(point);
+            model.CreateObj(point);
+            model.TryGrab(point);
+            stateController.ChangeState(4);
         }
         public override void MouseUp(Point point)
         {
-            model.CreateObj(point);
+
         }
         public override void MouseMove(Point point)
         {

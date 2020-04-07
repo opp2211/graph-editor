@@ -51,10 +51,18 @@ namespace graphics_editor
         public bool TryGrab(Point point)
         {
             bool grabbed = false;
+            int changerIndex = 0;
             foreach (Selection s in selections)
             {
                 if (s.TryGrab(point))
+                {
                     grabbed = true;
+                    changerIndex = s.changerIndex;
+                }
+            }
+            foreach (Selection s in selections)
+            {
+                s.ChangeChanger(changerIndex);
             }
             return grabbed;
         }
@@ -88,13 +96,11 @@ namespace graphics_editor
         {
             factory.SetCreatedObjType(createdObjType);
         }
-        public void SetStartPoint(Point point)
+        public void CreateObj(Point point)
         {
-            factory.SetStartPoint(point);
-        }
-        public void CreateObj(Point point2)
-        {
-            factory.CreateObj(point2);
+            factory.CreateObj(point);
+            store[store.Count - 1].Selected = true;
+            selections.Add(store[store.Count - 1].CreateSelection());
             scene.RePaint();
         }
         public void Group()

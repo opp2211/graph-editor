@@ -15,6 +15,9 @@ namespace graphics_editor
 
         protected bool grabbed = false;
         protected static Point grabbedPoint;
+        protected delegate void Changer(int dx, int dy);
+        protected Changer changer;
+        public int changerIndex;
         public bool Grabbed
         {
             get
@@ -30,14 +33,22 @@ namespace graphics_editor
         }
 
         abstract public void ResetSelection();
+        abstract public bool TryGrabMarker(Point point);
         abstract public void Draw(Graph graph);
 
         public bool TryGrab(Point point)
         {
-            if (item.isInBody(point))
+            if (TryGrabMarker(point))
+            {
+                grabbedPoint = point;
+                return true;
+            }
+            else if (item.isInBody(point))
             {
                 grabbed = true;
                 grabbedPoint = point;
+                changer = item.Move;
+                changerIndex = 0;
                 return true;
             }
             return false;
@@ -51,12 +62,34 @@ namespace graphics_editor
             int dx = point.X - grabbedPoint.X;
             int dy = point.Y - grabbedPoint.Y;
 
-            item.Move(dx, dy);
+            changer(dx, dy);
             ResetSelection();
         }
         public void Release()
         {
             grabbed = false;
+        }
+        public void ChangeChanger(int changerIndex)
+        {
+            this.changerIndex = changerIndex;
+            switch (changerIndex)
+            {
+                case 0:
+                    changer = item.Move;
+                    break;
+                case 1:
+                    changer = item.Resize_1;
+                    break;
+                case 2:
+                    changer = item.Resize_2;
+                    break;
+                case 3:
+                    changer = item.Resize_3;
+                    break;
+                case 4:
+                    changer = item.Resize_4;
+                    break;
+            }
         }
     }
     class FrameSelection : Selection
@@ -70,19 +103,43 @@ namespace graphics_editor
 
         public override void ResetSelection()
         {
-            int x0 = item.Frame.X1 < item.Frame.X2 ? item.Frame.X1 : item.Frame.X2;
-            int y0 = item.Frame.Y1 < item.Frame.Y2 ? item.Frame.Y1 : item.Frame.Y2;
-            int w = Math.Abs(item.Frame.X1 - item.Frame.X2);
-            int h = Math.Abs(item.Frame.Y1 - item.Frame.Y2);
 
-            FirstSel.X = x0;
-            FirstSel.Y = y0;
-            SecondSel.X = x0 + w;
-            SecondSel.Y = y0;
-            ThirdSel.X = x0 + w;
-            ThirdSel.Y = y0 + h;
-            FourthSel.X = x0;
-            FourthSel.Y = y0 + h;
+            FirstSel.X = item.Frame.X1;
+            FirstSel.Y = item.Frame.Y1;
+            SecondSel.X = item.Frame.X2;
+            SecondSel.Y = item.Frame.Y1;
+            ThirdSel.X = item.Frame.X2;
+            ThirdSel.Y = item.Frame.Y2;
+            FourthSel.X = item.Frame.X1;
+            FourthSel.Y = item.Frame.Y2;
+        }
+        public override bool TryGrabMarker(Point point)
+        {
+            if (FirstSel.X + 5 > point.X && FirstSel.X - 5 < point.X && FirstSel.Y + 5 > point.Y && FirstSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_1;
+                changerIndex = 1;
+                return true;
+            }
+            if (SecondSel.X + 5 > point.X && SecondSel.X - 5 < point.X && SecondSel.Y + 5 > point.Y && SecondSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_2;
+                changerIndex = 2;
+                return true;
+            }
+            if (ThirdSel.X + 5 > point.X && ThirdSel.X - 5 < point.X && ThirdSel.Y + 5 > point.Y && ThirdSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_3;
+                changerIndex = 3;
+                return true;
+            }
+            if (FourthSel.X + 5 > point.X && FourthSel.X - 5 < point.X && FourthSel.Y + 5 > point.Y && FourthSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_4;
+                changerIndex = 4;
+                return true;
+            }
+            return false;
         }
         public override void Draw(Graph graph)
         {
@@ -100,6 +157,22 @@ namespace graphics_editor
             FirstSel.Y = item.Frame.Y1;
             SecondSel.X = item.Frame.X2;
             SecondSel.Y = item.Frame.Y2;
+        }
+        public override bool TryGrabMarker(Point point)
+        {
+            if (FirstSel.X + 5 > point.X && FirstSel.X - 5 < point.X && FirstSel.Y + 5 > point.Y && FirstSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_1;
+                changerIndex = 1;
+                return true;
+            }
+            if (SecondSel.X + 5 > point.X && SecondSel.X - 5 < point.X && SecondSel.Y + 5 > point.Y && SecondSel.Y - 5 < point.Y)
+            {
+                changer = item.Resize_3;
+                changerIndex = 3;
+                return true;
+            }
+            return false;
         }
         public override void Draw(Graph graph)
         {

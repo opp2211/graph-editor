@@ -47,10 +47,12 @@ namespace graphics_editor
             graphics.DrawRectangle(new Pen(Color.Black, 1), p3.X - 5, p3.Y - 5, 10, 10);
             graphics.DrawRectangle(new Pen(Color.Black, 1), p4.X - 5, p4.Y - 5, 10, 10);
 
-            int x0 = p1.X;
-            int y0 = p2.Y;
-            int w = Math.Abs(x0 - p3.X);
-            int h = Math.Abs(y0 - p3.Y);
+            int x0 = p1.X < p3.X ? p1.X : p3.X;
+            int y0 = p1.Y < p3.Y ? p1.Y : p3.Y;
+            int x00 = x0 == p1.X ? p3.X : p1.X;
+            int y00 = y0 == p1.Y ? p3.Y : p1.Y;
+            int w = Math.Abs(x0 - x00);
+            int h = Math.Abs(y0 - y00);
 
             Pen pen = new Pen(Color.Black, 1);
             pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
