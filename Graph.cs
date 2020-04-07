@@ -4,12 +4,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace graphics_editor
 {
     class Graph
     {
         Graphics graphics;
+        Bitmap bm;
+        PictureBox pb;
         int x0, y0;
         int width, height;
 
@@ -17,9 +20,11 @@ namespace graphics_editor
         public int PenWidth { get; set; }
         public int BrushColor { get; set; }
 
-        public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
+        public void ViewPort(int x0, int y0, int w, int h, PictureBox pb)
         {
-            this.graphics = graphics;
+            this.pb = pb;
+            bm = new Bitmap(w, h);
+            this.graphics = Graphics.FromImage(bm);
             this.x0 = x0;
             this.y0 = y0;
             width = w;
@@ -81,8 +86,13 @@ namespace graphics_editor
         }
         public void Wipe()
         {
-            if (graphics != null)
-                graphics.FillRectangle(new SolidBrush(Color.White), 0, 0, width, height);
+
+            bm = new Bitmap(width, height);
+            graphics = Graphics.FromImage(bm);
+        }
+        public void Refresh()
+        {
+            pb.Image = bm;
         }
     }
 }

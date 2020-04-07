@@ -82,7 +82,10 @@ namespace graphics_editor
         public SingleSelectState(Model model, StateController stateController) : base(model, stateController) { }
         public override void MouseDown(Point point)
         {
-            if (model.TrySelect(point))
+            if (model.TryGrab(point))
+                stateController.ChangeState(4);
+
+            else if (model.TrySelect(point))
             {
                 if (isCtrl)
                 {
@@ -96,8 +99,6 @@ namespace graphics_editor
                 model.TryGrab(point);
                 stateController.ChangeState(4);
             }
-            else if (model.TryGrab(point))
-                stateController.ChangeState(4);
             else
                 stateController.ChangeState(0);
         }

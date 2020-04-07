@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace graphics_editor
 {
@@ -16,9 +17,9 @@ namespace graphics_editor
             this.model = model;
             this.stateController = new StateController(model);
         }
-        public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
+        public void ViewPort(int x0, int y0, int w, int h, PictureBox pb)
         {
-            model.ViewPort(x0, y0, w, h, graphics);
+            model.ViewPort(x0, y0, w, h, pb);
         }
         public void ChangeState(int stateNum)
         {

@@ -19,7 +19,7 @@ namespace graphics_editor
             controller = new Controller(new Model());
             controller.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
                        pictureBox1.Size.Width, pictureBox1.Size.Height,
-                       pictureBox1.CreateGraphics());
+                       pictureBox1);
             controller.InitializeProps(lineColor_label.BackColor.ToArgb(),
                                        (int)thickness_numericUpDown.Value,
                                        fillColor_label.BackColor.ToArgb());
@@ -121,5 +121,12 @@ namespace graphics_editor
             controller.RePaint();
         }
 
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Size = new Size(Size.Width - 128, Size.Height - 39);
+            controller.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
+           pictureBox1.Size.Width, pictureBox1.Size.Height,
+           pictureBox1);
+        }
     }
 }

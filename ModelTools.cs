@@ -108,10 +108,7 @@ namespace graphics_editor
             {
                 s.Draw(graph);
             }
-        }
-        public void PaintLast()
-        {
-            store.Last().Paint(graph);
+            graph.Refresh();
         }
     }
 }

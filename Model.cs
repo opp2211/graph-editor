@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace graphics_editor
 {
@@ -23,9 +24,9 @@ namespace graphics_editor
             this.selections = new SelectionList();
             this.scene = new Scene(store, graph, selections);
         }
-        public void ViewPort(int x0, int y0, int w, int h, Graphics graphics)
+        public void ViewPort(int x0, int y0, int w, int h, PictureBox pb)
         {
-            graph.ViewPort(x0, y0, w, h, graphics);
+            graph.ViewPort(x0, y0, w, h, pb);
         }
         public bool TrySelect(Point point)
         {
@@ -43,10 +44,13 @@ namespace graphics_editor
         }
         public void ClearSelections()
         {
-            selections.Clear();
-            foreach (Item item in store)
-                item.Selected = false;
-            scene.RePaint();
+            if (selections.Count > 0)
+            {
+                selections.Clear();
+                foreach (Item item in store)
+                    item.Selected = false;
+                scene.RePaint();
+            }
         }
         public bool TryGrab(Point point)
         {
