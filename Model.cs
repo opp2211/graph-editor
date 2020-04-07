@@ -74,7 +74,8 @@ namespace graphics_editor
                 s.DragTo(point);
                 repaint = true;
             }
-            selections[0].SetGrabbedPoint(point);
+            if (selections.Count > 0)
+                selections[0].SetGrabbedPoint(point);
             if (repaint) scene.RePaint();
         }
         public void Release()

@@ -16,10 +16,10 @@ namespace graphics_editor
         }
         public override bool isInBody(Point point)
         {
-            int x0 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
-            int y0 = Frame.Y1 < Frame.Y2 ? Frame.Y1 : Frame.Y2;
-            int w = Math.Abs(Frame.X1 - Frame.X2);
-            int h = Math.Abs(Frame.Y1 - Frame.Y2);
+            float x0 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
+            float y0 = Frame.Y1 < Frame.Y2 ? Frame.Y1 : Frame.Y2;
+            float w = Math.Abs(Frame.X1 - Frame.X2);
+            float h = Math.Abs(Frame.Y1 - Frame.Y2);
             return point.X >= x0 && point.X <= x0 + w && point.Y >= y0 && point.Y <= y0 + h;
         }
         public override Selection CreateSelection()
@@ -40,7 +40,7 @@ namespace graphics_editor
         }
         public override bool isInBody(Point point)
         {
-            Point centre = new Point((Frame.X2 + Frame.X1) / 2, (Frame.Y2 + Frame.Y1) / 2);
+            PointF centre = new PointF((Frame.X2 + Frame.X1) / 2, (Frame.Y2 + Frame.Y1) / 2);
             return Math.Pow(point.X - centre.X, 2) / Math.Pow(((Frame.X2 - Frame.X1) / 2), 2) + Math.Pow(point.Y - centre.Y, 2) / Math.Pow(((Frame.Y2 - Frame.Y1) / 2), 2) <= 1;
         }
         public override Selection CreateSelection()
@@ -61,10 +61,10 @@ namespace graphics_editor
         }
         public override bool isInBody(Point point)
         {
-            int x1 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
-            int x2 = x1 == Frame.X1 ? Frame.X2 : Frame.X1;
-            int y1 = x1 == Frame.X1 ? Frame.Y1 : Frame.Y2;
-            int y2 = x2 == Frame.X2 ? Frame.Y2 : Frame.Y1;
+            float x1 = Frame.X1 < Frame.X2 ? Frame.X1 : Frame.X2;
+            float x2 = x1 == Frame.X1 ? Frame.X2 : Frame.X1;
+            float y1 = x1 == Frame.X1 ? Frame.Y1 : Frame.Y2;
+            float y2 = x2 == Frame.X2 ? Frame.Y2 : Frame.Y1;
 
             int delta = 5;
 
@@ -113,10 +113,10 @@ namespace graphics_editor
             }
             foreach (Item item in list)
             {
-                item.RelX1 = (float)(item.Frame.X1 - Frame.X2);
-                item.RelX2 = (float)(item.Frame.X2 - Frame.X2);
-                item.RelY1 = (float)(item.Frame.Y1 - Frame.Y2);
-                item.RelY2 = (float)(item.Frame.Y2 - Frame.Y2);
+                item.RelX1 = (item.Frame.X1 - Frame.X2) / (Frame.X2 - Frame.X1);
+                item.RelX2 = (item.Frame.X2 - Frame.X2) / (Frame.X2 - Frame.X1);
+                item.RelY1 = (item.Frame.Y1 - Frame.Y2) / (Frame.Y2 - Frame.Y1);
+                item.RelY2 = (item.Frame.Y2 - Frame.Y2) / (Frame.Y2 - Frame.Y1);
             }
         }
         public override bool isInBody(Point point)
@@ -156,26 +156,35 @@ namespace graphics_editor
         }
         public override void Resize_1(int dx, int dy)
         {
-
+            Frame.Resize_1(dx, dy);
+            ResizeItems();
         }
         public override void Resize_2(int dx, int dy)
         {
             Frame.Resize_2(dx, dy);
-            foreach (Item item in list)
-            {
-                item.Frame.X1 = (int)(item.RelX1 + Frame.X2);
-                item.Frame.X2 = (int)(item.RelX2 + Frame.X2);
-                item.Frame.Y1 = (int)(item.RelY1 + Frame.Y2);
-                item.Frame.Y2 = (int)(item.RelY2 + Frame.Y2);
-            }
+            ResizeItems();
         }
         public override void Resize_3(int dx, int dy)
         {
-
+            Frame.Resize_3(dx, dy);
+            ResizeItems();
         }
         public override void Resize_4(int dx, int dy)
         {
-
+            Frame.Resize_4(dx, dy);
+            ResizeItems();
+        }
+        public void ResizeItems()
+        {
+            foreach (Item item in list)
+            {
+                item.Frame.X1 = item.RelX1 * (Frame.X2 - Frame.X1) + Frame.X2;
+                item.Frame.X2 = item.RelX2 * (Frame.X2 - Frame.X1) + Frame.X2;
+                item.Frame.Y1 = item.RelY1 * (Frame.Y2 - Frame.Y1) + Frame.Y2;
+                item.Frame.Y2 = item.RelY2 * (Frame.Y2 - Frame.Y1) + Frame.Y2;
+                if (item.GetType() == typeof(Group))
+                    (item as Group).ResizeItems();
+            }
         }
         public override object Clone()
         {

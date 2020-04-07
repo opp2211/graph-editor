@@ -8,14 +8,14 @@ namespace graphics_editor
 {
     class Frame : ICloneable
     {
-        public int X1 { get; set; }
-        public int Y1 { get; set; }
-        public int X2 { get; set; }
-        public int Y2 { get; set; }
+        public float X1 { get; set; }
+        public float Y1 { get; set; }
+        public float X2 { get; set; }
+        public float Y2 { get; set; }
 
         public bool Enabled { get; }
 
-        public Frame(int x1, int y1, int x2, int y2)
+        public Frame(float x1, float y1, float x2, float y2)
         {
             X1 = x1;
             Y1 = y1;
@@ -31,10 +31,10 @@ namespace graphics_editor
 
         public void JoinFrame(Frame frame)
         {
-            int x1 = X1;
-            int x2 = X2;
-            int y1 = Y1;
-            int y2 = Y2;
+            float x1 = X1;
+            float x2 = X2;
+            float y1 = Y1;
+            float y2 = Y2;
 
             X1 = Math.Min(Math.Min(x1, x2), Math.Min(frame.X1, frame.X2));
             X2 = Math.Max(Math.Max(x1, x2), Math.Max(frame.X1, frame.X2));

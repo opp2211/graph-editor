@@ -94,10 +94,10 @@ namespace graphics_editor
     }
     class FrameSelection : Selection
     {
-        Point FirstSel;
-        Point SecondSel;
-        Point ThirdSel;
-        Point FourthSel;
+        PointF FirstSel;
+        PointF SecondSel;
+        PointF ThirdSel;
+        PointF FourthSel;
 
         public FrameSelection(Item item) : base(item) { }
 
@@ -148,8 +148,8 @@ namespace graphics_editor
     }
     class LineSelection : Selection
     {
-        Point FirstSel;
-        Point SecondSel;
+        PointF FirstSel;
+        PointF SecondSel;
         public LineSelection(Item item) : base(item) { }
         public override void ResetSelection()
         {
