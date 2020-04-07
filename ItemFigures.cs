@@ -113,10 +113,10 @@ namespace graphics_editor
             }
             foreach (Item item in list)
             {
-                item.RelX1 = (float)(item.Frame.X1 - Frame.X2) / (Frame.X2 - Frame.X1);
-                item.RelX2 = (float)(item.Frame.X2 - Frame.X2) / (Frame.X2 - Frame.X1);
-                item.RelY1 = (float)(item.Frame.Y1 - Frame.Y2) / (Frame.X2 - Frame.X1);
-                item.RelY2 = (float)(item.Frame.Y2 - Frame.Y2) / (Frame.X2 - Frame.X1);
+                item.RelX1 = (float)(item.Frame.X1 - Frame.X2);
+                item.RelX2 = (float)(item.Frame.X2 - Frame.X2);
+                item.RelY1 = (float)(item.Frame.Y1 - Frame.Y2);
+                item.RelY2 = (float)(item.Frame.Y2 - Frame.Y2);
             }
         }
         public override bool isInBody(Point point)
@@ -156,47 +156,26 @@ namespace graphics_editor
         }
         public override void Resize_1(int dx, int dy)
         {
-            Frame.Resize_1(dx, dy);
-            foreach (Item item in list)
-            {
-                item.Frame.X1 = (int)(item.RelX1 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.X2 = (int)(item.RelX2 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.Y1 = (int)(item.RelY1 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-                item.Frame.Y2 = (int)(item.RelY2 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-            }
+
         }
         public override void Resize_2(int dx, int dy)
         {
             Frame.Resize_2(dx, dy);
             foreach (Item item in list)
             {
-                item.Frame.X1 = (int)(item.RelX1 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.X2 = (int)(item.RelX2 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.Y1 = (int)(item.RelY1 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-                item.Frame.Y2 = (int)(item.RelY2 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
+                item.Frame.X1 = (int)(item.RelX1 + Frame.X2);
+                item.Frame.X2 = (int)(item.RelX2 + Frame.X2);
+                item.Frame.Y1 = (int)(item.RelY1 + Frame.Y2);
+                item.Frame.Y2 = (int)(item.RelY2 + Frame.Y2);
             }
         }
         public override void Resize_3(int dx, int dy)
         {
-            Frame.Resize_3(dx, dy);
-            foreach (Item item in list)
-            {
-                item.Frame.X1 = (int)(item.RelX1 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.X2 = (int)(item.RelX2 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.Y1 = (int)(item.RelY1 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-                item.Frame.Y2 = (int)(item.RelY2 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-            }
+
         }
         public override void Resize_4(int dx, int dy)
         {
-            Frame.Resize_4(dx, dy);
-            foreach (Item item in list)
-            {
-                item.Frame.X1 = (int)(item.RelX1 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.X2 = (int)(item.RelX2 * (Frame.X2 - Frame.X1) + Frame.X2);
-                item.Frame.Y1 = (int)(item.RelY1 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-                item.Frame.Y2 = (int)(item.RelY2 * (Frame.Y2 - Frame.Y1) + Frame.Y2);
-            }
+
         }
         public override object Clone()
         {
