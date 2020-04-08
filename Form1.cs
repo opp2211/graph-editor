@@ -125,8 +125,8 @@ namespace graphics_editor
         {
             pictureBox1.Size = new Size(Size.Width - 128, Size.Height - 39);
             controller.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
-           pictureBox1.Size.Width, pictureBox1.Size.Height,
-           pictureBox1);
+            pictureBox1.Size.Width, pictureBox1.Size.Height,
+            pictureBox1);
         }
     }
 }
