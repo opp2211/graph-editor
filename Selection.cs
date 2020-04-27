@@ -7,7 +7,10 @@ using System.Drawing;
 
 namespace graphics_editor
 {
-    class SelectionList : List<Selection> { }
+    class SelectionList : List<Selection> 
+    { 
+
+    }
     abstract class Selection
     {
         protected Item item;
@@ -15,6 +18,7 @@ namespace graphics_editor
 
         protected bool grabbed = false;
         protected static Point grabbedPoint;
+        public Point GrabbedPoint { get { return grabbedPoint; } }
         protected delegate void Changer(int dx, int dy);
         protected Changer changer;
         public int changerIndex;

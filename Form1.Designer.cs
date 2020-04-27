@@ -52,6 +52,8 @@
             this.button_select = new System.Windows.Forms.Button();
             this.button_group = new System.Windows.Forms.Button();
             this.button_ungroup = new System.Windows.Forms.Button();
+            this.button_undo = new System.Windows.Forms.Button();
+            this.button_redo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -304,6 +306,28 @@
             this.button_ungroup.UseVisualStyleBackColor = true;
             this.button_ungroup.Click += new System.EventHandler(this.button_ungroup_Click);
             // 
+            // button_undo
+            // 
+            this.button_undo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_undo.Location = new System.Drawing.Point(9, 340);
+            this.button_undo.Name = "button_undo";
+            this.button_undo.Size = new System.Drawing.Size(45, 23);
+            this.button_undo.TabIndex = 6;
+            this.button_undo.Text = "Undo";
+            this.button_undo.UseVisualStyleBackColor = true;
+            this.button_undo.Click += new System.EventHandler(this.button_undo_Click);
+            // 
+            // button_redo
+            // 
+            this.button_redo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_redo.Location = new System.Drawing.Point(56, 340);
+            this.button_redo.Name = "button_redo";
+            this.button_redo.Size = new System.Drawing.Size(45, 23);
+            this.button_redo.TabIndex = 6;
+            this.button_redo.Text = "Redo";
+            this.button_redo.UseVisualStyleBackColor = true;
+            this.button_redo.Click += new System.EventHandler(this.button_redo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,6 +337,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_wipe);
             this.Controls.Add(this.button_ungroup);
+            this.Controls.Add(this.button_redo);
+            this.Controls.Add(this.button_undo);
             this.Controls.Add(this.button_group);
             this.Controls.Add(this.button_ellipse);
             this.Controls.Add(this.button_rect);
@@ -364,6 +390,8 @@
         private System.Windows.Forms.Button button_select;
         private System.Windows.Forms.Button button_group;
         private System.Windows.Forms.Button button_ungroup;
+        private System.Windows.Forms.Button button_undo;
+        private System.Windows.Forms.Button button_redo;
     }
 }
 

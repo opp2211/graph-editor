@@ -85,6 +85,15 @@ namespace graphics_editor
             }
             return list;
         }
+        public Store SubClone()
+        {
+            var clone = new Store();
+            foreach(var i in this)
+            {
+                clone.Add(i);
+            }
+            return clone;
+        }
     }
     class Scene
     {

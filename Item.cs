@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace graphics_editor
 {
-    abstract class Item : ICloneable
+    abstract class Item 
     {
         public Frame Frame { get; set; }
         public float RelX1 { get; set; }
@@ -31,7 +31,7 @@ namespace graphics_editor
         public abstract void Resize_2(int dx, int dy);
         public abstract void Resize_3(int dx, int dy);
         public abstract void Resize_4(int dx, int dy);
-        abstract public object Clone();
+        abstract public Item Clone();
 
     }
     abstract class Figure : Item
@@ -66,6 +66,13 @@ namespace graphics_editor
         public override void Resize_4(int dx, int dy)
         {
             Frame.Resize_4(dx, dy);
+        }
+        public override Item Clone()
+        {
+            var clone = (Figure)this.MemberwiseClone();
+            clone.Frame = (Frame)Frame.Clone();
+            clone.Props = (Props)Props.Clone();
+            return clone;
         }
     }
 }

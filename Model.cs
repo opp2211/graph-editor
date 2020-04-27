@@ -15,6 +15,7 @@ namespace graphics_editor
         Graph graph;
         Scene scene;
         SelectionList selections;
+        UndoRedoManager manager;
 
         public Model()
         {
@@ -23,6 +24,7 @@ namespace graphics_editor
             this.factory = new Factory(store);
             this.selections = new SelectionList();
             this.scene = new Scene(store, graph, selections);
+            this.manager = new UndoRedoManager();
         }
         public void ViewPort(int x0, int y0, int w, int h, PictureBox pb)
         {
@@ -52,8 +54,11 @@ namespace graphics_editor
                 scene.RePaint();
             }
         }
+        int operationNumber;
         public bool TryGrab(Point point)
         {
+            operationNumber++;
+
             bool grabbed = false;
             int changerIndex = 0;
             foreach (Selection s in selections)
@@ -72,15 +77,9 @@ namespace graphics_editor
         }
         public void DragTo(Point point)
         {
-            bool repaint = false;
-            foreach (Selection s in selections)
-            {
-                s.DragTo(point);
-                repaint = true;
-            }
-            if (selections.Count > 0)
-                selections[0].SetGrabbedPoint(point);
-            if (repaint) scene.RePaint();
+            var command = new DragCommand(selections, point, operationNumber);
+            manager.Execute(command);
+            scene.RePaint();
         }
         public void Release()
         {
@@ -103,9 +102,10 @@ namespace graphics_editor
         }
         public void CreateObj(Point point)
         {
-            factory.CreateObj(point);
-            store[store.Count - 1].Selected = true;
-            selections.Add(store[store.Count - 1].CreateSelection());
+            operationNumber++;
+            var command = new CreateObjCommand(factory, store, selections, point, operationNumber);
+            operationNumber--;
+            manager.Execute(command);
             scene.RePaint();
         }
         public void Group()
@@ -141,8 +141,19 @@ namespace graphics_editor
         }
         public void Wipe()
         {
-            store.Clear();
-            selections.Clear();
+            operationNumber++;
+            var command = new WipeCommand(store, selections, operationNumber);
+            manager.Execute(command);
+            scene.RePaint();
+        }
+        public void Undo()
+        {
+            manager.Undo();
+            scene.RePaint();
+        }
+        public void Redo()
+        {
+            manager.Redo();
             scene.RePaint();
         }
     }

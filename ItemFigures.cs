@@ -26,10 +26,6 @@ namespace graphics_editor
         {
             return new FrameSelection(this);
         }
-        public override object Clone()
-        {
-            return new Rectangle((Frame)Frame.Clone(), (Props)Props.Clone());
-        }
     }
     class Ellipse : Figure
     {
@@ -46,10 +42,6 @@ namespace graphics_editor
         public override Selection CreateSelection()
         {
             return new FrameSelection(this);
-        }
-        public override object Clone()
-        {
-            return new Ellipse((Frame)Frame.Clone(), (Props)Props.Clone());
         }
     }
     class Line : Figure
@@ -88,10 +80,6 @@ namespace graphics_editor
         public override Selection CreateSelection()
         {
             return new LineSelection(this);
-        }
-        public override object Clone()
-        {
-            return new Line((Frame)Frame.Clone(), (Props)Props.Clone());
         }
     }
     class Group : Item
@@ -186,8 +174,9 @@ namespace graphics_editor
                     (item as Group).ResizeItems();
             }
         }
-        public override object Clone()
+        public override Item Clone()
         {
+            //todo неправильное клонирование группы
             return new Group(list);
         }
     }

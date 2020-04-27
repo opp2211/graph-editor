@@ -64,6 +64,11 @@
     <Compile Include="Selection.cs" />
     <Compile Include="State.cs" />
     <Compile Include="StateController.cs" />
+    <Compile Include="UndoRedo\Commands\CreateObjCommand.cs" />
+    <Compile Include="UndoRedo\Commands\DragCommand.cs" />
+    <Compile Include="UndoRedo\Commands\WipeCommand.cs" />
+    <Compile Include="UndoRedo\ICommand.cs" />
+    <Compile Include="UndoRedo\UndoRedoManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

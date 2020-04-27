@@ -106,6 +106,10 @@ namespace graphics_editor
         {
             if (e.KeyCode == Keys.ControlKey)
                 controller.ControlOff();
+            if (e.KeyCode == Keys.Z && e.Control)
+                controller.Undo();
+            if (e.KeyCode == Keys.Y && e.Control)
+                controller.Redo();
         }
 
         private void button_group_Click(object sender, EventArgs e)
@@ -127,6 +131,16 @@ namespace graphics_editor
             controller.ViewPort(pictureBox1.Location.X, pictureBox1.Location.Y,
             pictureBox1.Size.Width, pictureBox1.Size.Height,
             pictureBox1);
+        }
+
+        private void button_undo_Click(object sender, EventArgs e)
+        {
+            controller.Undo();
+        }
+
+        private void button_redo_Click(object sender, EventArgs e)
+        {
+            controller.Redo();
         }
     }
 }

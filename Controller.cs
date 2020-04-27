@@ -80,5 +80,14 @@ namespace graphics_editor
         {
             model.RePaint();
         }
+        public void Undo()
+        {
+            model.Undo();
+            //todo изменение состояний
+        }
+        public void Redo()
+        {
+            model.Redo();
+        }
     }
 }
