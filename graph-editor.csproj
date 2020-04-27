@@ -66,6 +66,8 @@
     <Compile Include="StateController.cs" />
     <Compile Include="UndoRedo\Commands\CreateObjCommand.cs" />
     <Compile Include="UndoRedo\Commands\DragCommand.cs" />
+    <Compile Include="UndoRedo\Commands\GroupCommand.cs" />
+    <Compile Include="UndoRedo\Commands\UngroupCommand.cs" />
     <Compile Include="UndoRedo\Commands\WipeCommand.cs" />
     <Compile Include="UndoRedo\ICommand.cs" />
     <Compile Include="UndoRedo\UndoRedoManager.cs" />

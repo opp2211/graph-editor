@@ -112,11 +112,9 @@ namespace graphics_editor
         {
             if (selections.Count > 1)
             {
-                selections.Clear();
-                Group group = store.Group();
-                group.ClearSelectionsForItems();
-                group.Selected = true;
-                selections.Add(group.CreateSelection());
+                operationNumber++;
+                var command = new GroupCommand(selections, store, operationNumber);
+                manager.Execute(command);
                 scene.RePaint();
             }
         }
@@ -124,15 +122,10 @@ namespace graphics_editor
         {
             if (selections.Count == 1 && selections[0].Item.GetType() == typeof(Group))
             {
-                List<Item> ungrouppedItems = store.UnGroup((Group)selections[0].Item);
-                selections.Clear();
-                foreach (Item item in ungrouppedItems)
-                {
-                    item.Selected = true;
-                    selections.Add(item.CreateSelection());
-                }
+                operationNumber++;
+                var command = new UngroupCommand(selections, store, operationNumber);
+                manager.Execute(command);
                 scene.RePaint();
-
             }
         }
         public void RePaint()
