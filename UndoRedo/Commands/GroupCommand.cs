@@ -25,7 +25,13 @@ namespace graphics_editor
             if (group == null)
                 group = store.Group();
             else
+            {
+                foreach(var i in group.GetItems)
+                {
+                    store.Remove(i);
+                }
                 store.Add(group);
+            }
 
             selections.Clear();
             group.ClearSelectionsForItems();
